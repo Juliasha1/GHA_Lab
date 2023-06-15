@@ -22,7 +22,17 @@ jobs:
         run: pip install pyinstaller
 
       - name: Build Application
-        run: pyinstaller --onefile main.py
+        uses: Nuitka/Nuitka-Action@main
+        with:
+          nuitka-version: main
+          script-name: main.py
+          onefile: true
+          
+      - name: Upload Exe
+        uses: actions/upload-artifact@v3
+        with:
+          name: exe
+          path: main.exe
         
       - name: Install Flake8
         run: |
@@ -31,16 +41,5 @@ jobs:
       - name: Code Style Check
         run: |
           flake8 --exit-zero --statistics main.py 
-        
-      - name: Upload Log
-        uses: actions/upload-artifact@v3
-        with:
-          name: log
-          path: logStyle.txt
-          
-      - name: Upload Exe
-        uses: actions/upload-artifact@v3
-        with:
-          name: exe
-          path: build/main.exe
-      
+  
+  
