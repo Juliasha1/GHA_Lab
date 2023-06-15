@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: exe
-          path: main.exe
+          path: build/main.exe
         
       - name: Install Flake8
         run: |
@@ -41,5 +41,4 @@ jobs:
       - name: Code Style Check
         run: |
           flake8 --exit-zero --statistics main.py 
-  
   
