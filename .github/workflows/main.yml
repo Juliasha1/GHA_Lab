@@ -18,8 +18,29 @@ jobs:
         with:
           python-version: 3.9
       
-      - name: Install Dependency
+      - name: Install Requirements
         run: pip install pyinstaller
 
       - name: Build Application
         run: pyinstaller --onefile main.py
+        
+      - name: Install Flake8
+        run: |
+          pip install flake8
+      
+      - name: Code Style Check
+        run: |
+          flake8 --exit-zero --statistics main.py 
+        
+      - name: Upload Log
+        uses: actions/upload-artifact@v3
+        with:
+          name: log
+          path: logStyle.txt
+          
+      - name: Upload Exe
+        uses: actions/upload-artifact@v3
+        with:
+          name: exe
+          path: build/main.exe
+      
